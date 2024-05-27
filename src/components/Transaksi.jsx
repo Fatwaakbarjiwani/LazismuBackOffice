@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTransaksi, sumarry } from "../redux/action/campaignAction";
 import PageNumber from "./PageNumber";
-import CardDashboard from "./cardDashboard";
+import CardDashboard from "./CardDashboard";
 import icon4 from "../assets/Icon-3.svg";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import TablePengajuan from "./TablePengajuan";
