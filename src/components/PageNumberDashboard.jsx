@@ -6,8 +6,8 @@ function PageNumberDashboard() {
   const dispatch = useDispatch();
   const [inputPage, setInputPage] = useState("");
   const { pageNumber } = useSelector((state) => state.campaign);
-  // const { page } = useSelector((state) => state.campaign);
-  const page = 10;
+  const { page } = useSelector((state) => state.campaign);
+  // const page = 10;
 
   const handlePage = (value) => {
     if (value >= 1 && value <= page) {

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPageNumber } from "../redux/reducers/campaignReducer";
 
 function PageNumber() {
-  // const { page } = useSelector((state) => state.campaign);
-  const page = 10;
+  const { page } = useSelector((state) => state.campaign);
+  // const page = 10;
   const limit = page;
   const pages = Array.from({ length: limit }, (_, index) => index + 1);
 
