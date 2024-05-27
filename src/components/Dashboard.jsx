@@ -4,7 +4,7 @@ import icon1 from "../assets/Icon.svg";
 import icon2 from "../assets/Icon-1.svg";
 import icon3 from "../assets/Icon-2.svg";
 import icon4 from "../assets/Icon-3.svg";
-import CardDashboard from "../components/cardDashboard";
+import CardDashboard from "../components/CardDashboard";
 import Cart from "../components/Cart";
 import Table from "../components/TableContent";
 import { useEffect } from "react";
