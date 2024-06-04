@@ -13,10 +13,11 @@ import tiket1 from "../assets/tiket1.svg";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowLogout } from "../redux/reducers/modalReducer";
+import { setPageNumber, setPageNumber2, setPageNumberDashboard } from "../redux/reducers/campaignReducer";
 
 function Sidebar({ setMenu, menu }) {
   const dispatch = useDispatch();
-  const {user} = useSelector((state)=>state.auth)
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div className="w-full bg-white ring-1 ring-gray-100 drop-shadow-sm py-1 h-full">
@@ -28,7 +29,7 @@ function Sidebar({ setMenu, menu }) {
         />
       </div>
       <button
-        onClick={() => setMenu("dashboard")}
+        onClick={() => {setMenu("dashboard");dispatch(setPageNumberDashboard(1))}}
         className={`${
           menu == "dashboard" ? "border-primary" : "border-transparent"
         } flex justify-center border-l-4 active:border-primary w-full justify-center`}
@@ -48,7 +49,11 @@ function Sidebar({ setMenu, menu }) {
         </div>
       </button>
       <button
-        onClick={() => setMenu("campaign")}
+        onClick={() => {
+          setMenu("campaign");
+          dispatch(setPageNumber(1));
+          dispatch(setPageNumber2(1));
+        }}
         className={`${
           menu == "campaign" ? "border-primary" : "border-transparent"
         } flex justify-center border-l-4 active:border-primary w-full justify-center`}
@@ -88,7 +93,11 @@ function Sidebar({ setMenu, menu }) {
         </div>
       </button>
       <button
-        onClick={() => setMenu("transaksi")}
+        onClick={() => {
+          setMenu("transaksi");
+          dispatch(setPageNumber(1));
+          dispatch(setPageNumber2(1));
+        }}
         className={`${
           menu == "transaksi" ? "border-primary" : "border-transparent"
         } flex justify-center border-l-4 active:border-primary w-full justify-center`}
@@ -108,7 +117,7 @@ function Sidebar({ setMenu, menu }) {
         </div>
       </button>
       <button
-        onClick={() => setMenu("amil")}
+        onClick={() => {setMenu("amil");dispatch(setPageNumberDashboard(1))}}
         className={`${
           menu == "amil" ? "border-primary" : "border-transparent"
         } flex justify-center border-l-4 active:border-primary w-full justify-center`}
@@ -118,49 +127,41 @@ function Sidebar({ setMenu, menu }) {
             menu == "amil" ? "bg-primary text-white  " : "bg-transparent"
           } active:bg-primary flex gap-4 justify-center sm:justify-start p-2 rounded-md w-3/4 active:text-white`}
         >
-          {menu != "amil" && (
-            <img src={paper} className="w-4 sm:w-6" alt="" />
-          )}
-          {menu == "amil" && (
-            <img src={paper1} className="w-4 sm:w-6" alt="" />
-          )}
+          {menu != "amil" && <img src={paper} className="w-4 sm:w-6" alt="" />}
+          {menu == "amil" && <img src={paper1} className="w-4 sm:w-6" alt="" />}
           <p className="text-lg font-semibold hidden sm:block">Amil</p>
         </div>
       </button>
-        <button
-          onClick={() => setMenu("pengajuan")}
+      <button
+        onClick={() => setMenu("pengajuan")}
+        className={`${
+          menu == "pengajuan" ? "border-primary" : "border-transparent"
+        } flex justify-center border-l-4 active:border-primary w-full justify-center`}
+      >
+        <div
           className={`${
-            menu == "pengajuan" ? "border-primary" : "border-transparent"
-          } flex justify-center border-l-4 active:border-primary w-full justify-center`}
+            menu == "pengajuan" ? "bg-primary text-white  " : "bg-transparent"
+          } active:bg-primary flex gap-4 justify-center sm:justify-start p-2 rounded-md w-3/4 active:text-white`}
         >
-          <div
-            className={`${
-              menu == "pengajuan"
-                ? "bg-primary text-white  "
-                : "bg-transparent"
-            } active:bg-primary flex gap-4 justify-center sm:justify-start p-2 rounded-md w-3/4 active:text-white`}
-          >
-            {menu != "pengajuan" && (
-              <img src={news} className="w-6 sm:w-6" alt="" />
-            )}
-            {menu == "pengajuan" && (
-              <img src={news1} className="w-6 sm:w-6" alt="" />
-            )}
-            <p className="text-lg font-semibold hidden sm:block">Pengajuan</p>
-          </div>
-        </button>
+          {menu != "pengajuan" && (
+            <img src={news} className="w-6 sm:w-6" alt="" />
+          )}
+          {menu == "pengajuan" && (
+            <img src={news1} className="w-6 sm:w-6" alt="" />
+          )}
+          <p className="text-lg font-semibold hidden sm:block">Pengajuan</p>
+        </div>
+      </button>
       {user?.role?.name == "ADMIN" && (
         <button
-          onClick={() => setMenu("berita")}
+          onClick={() =>{ setMenu("berita");dispatch(setPageNumber(1))}}
           className={`${
             menu == "berita" ? "border-primary" : "border-transparent"
           } flex justify-center border-l-4 active:border-primary w-full justify-center`}
         >
           <div
             className={`${
-              menu == "berita"
-                ? "bg-primary text-white  "
-                : "bg-transparent"
+              menu == "berita" ? "bg-primary text-white  " : "bg-transparent"
             } active:bg-primary flex gap-4 justify-center sm:justify-start p-2 rounded-md w-3/4 active:text-white`}
           >
             {menu != "berita" && (

@@ -2,24 +2,24 @@ import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTransaksi, sumarry } from "../redux/action/campaignAction";
-import PageNumber from "./PageNumber";
 import CardDashboard from "./CardDashboard";
 import icon4 from "../assets/Icon-3.svg";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import TablePengajuan from "./TablePengajuan";
+import PageNumber2 from "./PageNumber2";
 
 function Transaksi() {
   const { transaksi } = useSelector((state) => state.campaign);
-  const { pageNumber } = useSelector((state) => state.campaign);
+  const { pageNumber2 } = useSelector((state) => state.campaign);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { summary } = useSelector((state) => state.campaign);
   const [jumlah, setJumlah] = useState(null);
 
   useEffect(() => {
-    dispatch(getTransaksi(pageNumber - 1, setJumlah));
+    dispatch(getTransaksi(pageNumber2 - 1, setJumlah));
     dispatch(sumarry());
-  }, [dispatch, pageNumber]);
+  }, [dispatch, pageNumber2]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
@@ -50,7 +50,7 @@ function Transaksi() {
       <div className="bg-white rounded sm:rounded-2xl my-2 p-3 sm:p-5 gap-5">
         <div className="sm:flex space-y-2 justify-between">
           <div className="flex gap-2 justify-between">
-            <PageNumber />
+            <PageNumber2 />
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -68,7 +68,7 @@ function Transaksi() {
               {transaksi.map((item) => (
                 <Table.Row
                   key={item.transactionId}
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  className="bg-white"
                 >
                   <Table.Cell>{item.transactionId}</Table.Cell>
                   <Table.Cell>{item.username}</Table.Cell>

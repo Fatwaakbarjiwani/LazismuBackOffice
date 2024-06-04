@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPageNumber } from "../redux/reducers/campaignReducer";
+import { setPageNumber2 } from "../redux/reducers/campaignReducer";
 
-function PageNumber() {
-  const { page } = useSelector((state) => state.campaign);
-  // const page = 10;
-  const limit = page;
+function PageNumber2() {
+  const { page2 } = useSelector((state) => state.campaign);
+  // const page2 = 10;
+  const limit = page2;
   const pages = Array.from({ length: limit }, (_, index) => index + 1);
 
   const dispatch = useDispatch();
-  const { pageNumber } = useSelector((state) => state.campaign);
+  const { pageNumber2 } = useSelector((state) => state.campaign);
 
   const handlePage = (value) => {
-    dispatch(setPageNumber(value));
+    dispatch(setPageNumber2(value));
   };
 
   const renderPagination = () => {
@@ -19,14 +19,14 @@ function PageNumber() {
       return null;
     }
 
-    const currentIndex = pages.indexOf(pageNumber);
+    const currentIndex = pages.indexOf(pageNumber2);
     const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
     const nextPage =
       currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
 
     return (
       <>
-        {page > 1 && (
+        {page2 > 1 && (
           <nav
             aria-label="Page navigation example"
             className="flex justify-center gap-4 items-end"
@@ -43,12 +43,12 @@ function PageNumber() {
                 </li>
               )}
 
-              <li key={pageNumber}>
+              <li key={pageNumber2}>
                 <button
-                  className={`text-lg flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 ${"text-white bg-orange-400 hover:bg-orange-400 hover:text-gray-700 "}`}
-                  onClick={() => handlePage(pageNumber)}
+                  className={`text-lg flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 ${"text-white bg-orange-400 hover:bg-orange-400 hover:text-gray-700"}`}
+                  onClick={() => handlePage(pageNumber2)}
                 >
-                  {pageNumber}
+                  {pageNumber2}
                 </button>
               </li>
 
@@ -72,4 +72,4 @@ function PageNumber() {
   return <div>{renderPagination()}</div>;
 }
 
-export default PageNumber;
+export default PageNumber2;

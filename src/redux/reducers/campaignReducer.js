@@ -12,7 +12,11 @@ const initialState = {
   summary: [],
   users: [],
   pageNumber: 1,
+  pageNumber2: 1,
+  pageNumberDashboard: 1,
   page: null,
+  page2: null,
+  pageDashboard: null,
   transaksi: [],
   berita: [],
   topic: [],
@@ -21,6 +25,7 @@ const initialState = {
   amilCampaign: [],
   summaryAmil: [],
   pengajuan: [],
+  aprovedPengajuan: [],
 };
 const authSlice = createSlice({
   name: "campaign",
@@ -62,8 +67,20 @@ const authSlice = createSlice({
     setPageNumber: (state, action) => {
       state.pageNumber = action.payload;
     },
+    setPageNumber2: (state, action) => {
+      state.pageNumber2 = action.payload;
+    },
+    setPageNumberDashboard: (state, action) => {
+      state.pageNumberDashboard = action.payload;
+    },
     setPage: (state, action) => {
       state.page = action.payload;
+    },
+    setPage2: (state, action) => {
+      state.page2 = action.payload;
+    },
+    setPageDashboard: (state, action) => {
+      state.pageDashboard = action.payload;
     },
     setTransaksi: (state, action) => {
       state.transaksi = action.payload;
@@ -89,6 +106,9 @@ const authSlice = createSlice({
     setPengajuan: (state, action) => {
       state.pengajuan = action.payload;
     },
+    setAprovedPengajuan: (state, action) => {
+      state.aprovedPengajuan = action.payload;
+    },
   },
 });
 
@@ -105,7 +125,11 @@ export const {
   setsummary,
   setUsers,
   setPageNumber,
+  setPageNumber2,
+  setPageNumberDashboard,
   setPage,
+  setPage2,
+  setPageDashboard,
   setTransaksi,
   setBerita,
   setTopic,
@@ -114,6 +138,7 @@ export const {
   setAmilCampaign,
   setSummaryAmil,
   setPengajuan,
+  setAprovedPengajuan,
 } = authSlice.actions;
 
 export default authSlice.reducer;

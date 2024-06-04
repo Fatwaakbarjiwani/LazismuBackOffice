@@ -16,7 +16,7 @@ export default function Login() {
   const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     if (user?.roles == "ADMIN" || user?.roles == "SUB_ADMIN") {
-      navigate("/homePage");
+      navigate("/lazismubackoffice/homePage");
       toast.success("Berhasil Login");
     } else if (user?.roles == "USER") {
       toast.error("Login Admin gagal");
@@ -42,14 +42,14 @@ export default function Login() {
           <p className="text-3">Login Admin</p>
           <div>
             <FloatingLabel
-              className="text-lg"
+              className="text-lg dark:text-black"
               variant="standard"
               label="Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
             <FloatingLabel
-              className="text-lg"
+              className="text-lg dark:text-black"
               variant="standard"
               label="Password"
               value={password}

@@ -74,7 +74,7 @@ function Berita() {
                 .map((item) => (
                   <Table.Row
                     key={item.newsId}
-                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    className="bg-white"
                   >
                     <Table.Cell className="px-4 py-2 whitespace-nowrap overflow-hidden overflow-ellipsis max-w-sm">
                       {item.title}

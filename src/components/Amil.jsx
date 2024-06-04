@@ -11,11 +11,11 @@ function Amil() {
   const dispatch = useDispatch();
   const { amilCampaign } = useSelector((state) => state.campaign);
   const { summaryAmil } = useSelector((state) => state.campaign);
-  const { pageNumber } = useSelector((state) => state.campaign);
+  const { pageNumberDashboard } = useSelector((state) => state.campaign);
   useEffect(() => {
-    dispatch(getAmil(pageNumber - 1));
+    dispatch(getAmil(pageNumberDashboard - 1));
     dispatch(getSummaryAmil());
-  }, [dispatch, pageNumber]);
+  }, [dispatch, pageNumberDashboard]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
@@ -39,7 +39,7 @@ function Amil() {
             {amilCampaign.map((item) => (
               <Table.Row
                 key={item.campaignId}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                className="bg-white"
               >
                 <Table.Cell>{item.campaignName}</Table.Cell>
                 <Table.Cell>{item.location}</Table.Cell>

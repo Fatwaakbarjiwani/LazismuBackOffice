@@ -14,7 +14,7 @@ export const login = (phoneNumber, password) => async (dispatch) => {
     const data = response.data;
     dispatch(setUser(data));
     dispatch(setToken(data.token));
-    
+
     toast.success("Selamat Datang");
   } catch (error) {
     if (error.response && error.response.status === 401) {
@@ -29,11 +29,12 @@ export const login = (phoneNumber, password) => async (dispatch) => {
 export const logout = (navigate) => (dispatch) => {
   dispatch(setToken(null));
   dispatch(setUser(null));
-  navigate("/")
+  navigate("/lazismubackoffice");
 };
 
-export const getMe = (navigate, navigatePathSuccess, navigatePathError) =>
-async (dispatch, getState) => {
+export const getMe =
+  (navigate, navigatePathSuccess, navigatePathError) =>
+  async (dispatch, getState) => {
     const { token } = getState().auth;
     try {
       const response = await axios.get(`${VITE_API_URL}/user/my-profile`, {
@@ -43,22 +44,22 @@ async (dispatch, getState) => {
       });
       const data = response.data;
       dispatch(setUser(data));
-       if (navigatePathSuccess) navigate(navigatePathSuccess);
-       if (data.role.name == "USER"){
-        dispatch(setToken(null))
-       }
+      if (navigatePathSuccess) navigate(navigatePathSuccess);
+      if (data.role.name == "USER") {
+        dispatch(setToken(null));
+      }
     } catch (error) {
-       if (axios.isAxiosError(error)) {
-         if (error.response.status === 400) {
-           logout();
-           if (navigatePathError) navigate(navigatePathError);
-           return;
-         }
+      if (axios.isAxiosError(error)) {
+        if (error.response.status === 400) {
+          logout();
+          if (navigatePathError) navigate(navigatePathError);
+          return;
+        }
 
-         toast.error(error?.response?.data?.message);
-         return;
-       }
+        toast.error(error?.response?.data?.message);
+        return;
+      }
 
-       toast.error(error?.message);
+      toast.error(error?.message);
     }
   };

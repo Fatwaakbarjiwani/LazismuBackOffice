@@ -2,11 +2,11 @@ import { Table } from "flowbite-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getAllCampaign } from "../redux/action/campaignAction";
-import PageNumberDashboard from "./PageNumberDashboard";
 import {
   setSearchCampaign,
 } from "../redux/reducers/campaignReducer";
 import { ModalTransaksi } from "./ModalTransaksi";
+import PageNumber from "./PageNumber";
 
 function TablePengajuan() {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function TablePengajuan() {
             onChange={(e) => dispatch(setSearchCampaign(e.target.value))}
           />
         </div>
-        <PageNumberDashboard />
+        <PageNumber/>
       </div>
       <div className="overflow-x-auto">
         <Table hoverable className="my-5">
@@ -52,7 +52,7 @@ function TablePengajuan() {
             {campaign.map((item) => (
               <Table.Row
                 key={item.campaignId}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                className="bg-white"
               >
                 <Table.Cell className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-2xl">
                   {item.campaignName}

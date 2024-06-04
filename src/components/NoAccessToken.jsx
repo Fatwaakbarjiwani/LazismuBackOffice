@@ -9,7 +9,7 @@ const NoAccessToken = ({ children }) => {
 
   useEffect(() => {
     // Example if we want access login page but we've already logged in, -> Home
-    dispatch(getMe(navigate, "/homePage", null));
+    dispatch(getMe(navigate, "/lazismubackoffice/homePage", null));
   }, [dispatch, navigate]);
 
   return children;

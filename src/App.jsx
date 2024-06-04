@@ -11,10 +11,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ToastContainer autoClose={3000} />  
+        <ToastContainer autoClose={3000} />
         <Routes>
           <Route
-            path="/homePage"
+            path="/lazismubackoffice/homePage"
             element={
               <Protected>
                 <HomePage />
@@ -22,7 +22,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/"
+            path="/lazismubackoffice"
             element={
               <NoAccessToken>
                 <Login />

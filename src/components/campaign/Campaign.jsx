@@ -14,10 +14,12 @@ import { setDetailCampaign } from "../../redux/reducers/campaignReducer";
 import ModalEdit from "./ModalEdit";
 import PageNumber from "../PageNumber";
 import ModalAprove from "./ModalAprove";
+import PageNumber2 from "../PageNumber2";
 
 function Campaign() {
   const { campaign } = useSelector((state) => state.campaign);
   const { pageNumber } = useSelector((state) => state.campaign);
+  const { pageNumber2 } = useSelector((state) => state.campaign);
   const { campaignPending } = useSelector((state) => state.campaign);
   const { user } = useSelector((state) => state.auth);
 
@@ -36,12 +38,12 @@ function Campaign() {
       dispatch(
         getCampaignByService(
           user?.serviceOffice?.serviceOfficeId,
-          pageNumber - 1
+          pageNumber2 - 1
         )
       );
     }
     dispatch(getAllCampaign(pageNumber - 1));
-  }, [dispatch, create, pageNumber]);
+  }, [dispatch, create, pageNumber,pageNumber2]);
 
   const handleEdit = (campaignCode) => {
     dispatch(getDetailCampaign(campaignCode));
@@ -126,7 +128,7 @@ function Campaign() {
               {campaign.map((item) => (
                 <Table.Row
                   key={item.campaignId}
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  className="bg-white"
                 >
                   <Table.Cell>{item.campaignId}</Table.Cell>
                   <Table.Cell>{item.campaignName}</Table.Cell>
@@ -199,10 +201,10 @@ function Campaign() {
         {user?.role?.name == "ADMIN" ? "Pengajuan Campaign" : "Pengajuan Distribusi"}
       </h1>
       <div className="bg-white rounded sm:rounded-2xl my-2 p-3 sm:p-5 gap-5">
-        {user?.rolle?.name == "SUB_ADMIN" && (
+        {user?.role?.name == "SUB_ADMIN" && (
           <div className="sm:flex space-y-2 justify-between">
             <div className="flex gap-2 justify-between">
-              <PageNumber />
+              <PageNumber2 />
             </div>
           </div>
         )}
@@ -226,7 +228,7 @@ function Campaign() {
               {campaignPending.map((item) => (
                 <Table.Row
                   key={item.campaignId}
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  className="bg-white"
                 >
                   <Table.Cell>{item.campaignId}</Table.Cell>
                   <Table.Cell>{item.campaignName}</Table.Cell>

@@ -5,6 +5,7 @@ import {
   setAllCampaign,
   setAllCategory,
   setAmilCampaign,
+  setAprovedPengajuan,
   setBerita,
   setCampaign,
   setCampaignPending,
@@ -14,6 +15,8 @@ import {
   setGetCampaignSearch,
   setGetCategoryCampaign,
   setPage,
+  setPage2,
+  setPageDashboard,
   setPengajuan,
   setSummaryAmil,
   setTopic,
@@ -48,7 +51,7 @@ export const getCampaign = (searchCampaign) => async (dispatch) => {
     );
     const data = response.data;
     dispatch(setAllCampaign(data.content));
-    dispatch(setPage(data.totalPages));
+    dispatch(setPageDashboard(data.totalPages));
   } catch (error) {
     toast.error(error.response.data);
   }
@@ -90,6 +93,7 @@ export const getCampaignByService = (id, pageNumber) => async (dispatch) => {
     );
     const data = response.data;
     dispatch(setCampaignPending(data.content));
+    dispatch(setPage2(data.totalPages));
   } catch (error) {
     toast.error(error.response.data);
   }
@@ -99,7 +103,7 @@ export const getCampaignActive = (page) => async (dispatch) => {
     const response = await axios.get(`${VITE_API_URL}/campaign?page=${page}`);
     const data = response.data;
     dispatch(setAllCampaign(data.content));
-    dispatch(setPage(data.totalPages));
+    dispatch(setPageDashboard(data.totalPages));
   } catch (error) {
     toast.error(error.response.data);
   }
@@ -111,7 +115,7 @@ export const getAmil = (page) => async (dispatch) => {
     );
     const data = response.data;
     dispatch(setAmilCampaign(data.content));
-    dispatch(setPage(data.totalPages));
+    dispatch(setPageDashboard(data.totalPages));
   } catch (error) {
     toast.error(error.response.data);
   }
@@ -450,6 +454,43 @@ export const getAproveCampaign = (id) => async (_, getState) => {
     console.log(error.response);
   }
 };
+export const aproveSubmission = (id) => async (_, getState) => {
+  try {
+    const { token } = getState().auth;
+    await axios.put(
+      `${VITE_API_URL}/admin/submission/approve-submission?submissionId=${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    window.location.reload()
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || "Unknown error";
+    toast.error(`Error approve campaign: ${errorMessage}`);
+    console.log(error.response);
+  }
+};
+export const getAprovedSubmission = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    const response = await axios.get(
+      `${VITE_API_URL}/submission/approved`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch(setAprovedPengajuan(response.data));
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || "Unknown error";
+    toast.error(`Error approve campaign: ${errorMessage}`);
+  }
+};
 
 export const getTransaksi = (pageNumber, setJumlah) => async (dispatch) => {
   try {
@@ -458,35 +499,36 @@ export const getTransaksi = (pageNumber, setJumlah) => async (dispatch) => {
     );
     const data = response.data;
     dispatch(setTransaksi(data.content));
-    dispatch(setPage(data.totalPages));
+    dispatch(setPage2(data.totalPages));
     setJumlah(data.totalElements);
   } catch (error) {
     toast.error(error.response.data);
   }
 };
-export const createPengajuan = (id,jumlah,setOpenModal) => async (_, getState) => {
-  try {
-    const { token } = getState().auth;
-    await axios.post(
-      `${VITE_API_URL}/submission/create`,
-      {
-        campaign: {
-          campaignId: id,
+export const createPengajuan =
+  (id, jumlah, setOpenModal) => async (_, getState) => {
+    try {
+      const { token } = getState().auth;
+      await axios.post(
+        `${VITE_API_URL}/submission/create`,
+        {
+          campaign: {
+            campaignId: id,
+          },
+          submissionAmount: jumlah,
         },
-        submissionAmount: jumlah,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    setOpenModal(false)
-    toast.success("pengajuan berhasil");
-  } catch (error) {
-    toast.error(error.response.data);
-  }
-};
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setOpenModal(false);
+      toast.success("pengajuan berhasil");
+    } catch (error) {
+      toast.error(error.response.data);
+    }
+  };
 export const buatTransaksi =
   (jumlah, nama, desk, code, setOpenModal) => async (_, getState) => {
     // console.log(jumlah, nama, desk, code);

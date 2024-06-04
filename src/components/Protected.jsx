@@ -8,7 +8,7 @@ const Protected = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMe(navigate, null, "/"));
+    dispatch(getMe(navigate, null, "/lazismubackoffice"));
   }, [dispatch, navigate]);
 
   return children;

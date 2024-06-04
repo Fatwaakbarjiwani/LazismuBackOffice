@@ -8,16 +8,16 @@ import { setSearchCampaign } from "../redux/reducers/campaignReducer";
 function TableContent() {
   const dispatch = useDispatch();
   const { allCampaign } = useSelector((state) => state.campaign);
-  const { pageNumber } = useSelector((state) => state.campaign);
+  const { pageNumberDashboard } = useSelector((state) => state.campaign);
   const { searchCampaign } = useSelector((state) => state.campaign);
 
   useEffect(() => {
     if (searchCampaign == "") {
-      dispatch(getCampaignActive(pageNumber - 1));
+      dispatch(getCampaignActive(pageNumberDashboard - 1));
     } else {
-      dispatch(getCampaign(searchCampaign, pageNumber - 1));
+      dispatch(getCampaign(searchCampaign, pageNumberDashboard - 1));
     }
-  }, [dispatch, pageNumber, searchCampaign]);
+  }, [dispatch, pageNumberDashboard, searchCampaign]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
@@ -56,7 +56,7 @@ function TableContent() {
             {allCampaign.map((item) => (
               <Table.Row
                 key={item.campaignId}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                className="bg-white "
               >
                 <Table.Cell className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-2xl">
                   {item.campaignName}
