@@ -23,7 +23,7 @@ function TableContent() {
   };
   return (
     <div className="bg-white p-5 rounded-2xl">
-      <div className="flex gap-10 items-end">
+      <div className="sm:flex space-y-4 gap-10 items-end">
         <div className="flex gap-2 items-center">
           <p className="text-lg">Search: </p>
           <input

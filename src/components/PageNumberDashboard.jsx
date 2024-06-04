@@ -40,7 +40,7 @@ function PageNumberDashboard() {
         {pageDashboard > 1 && (
           <nav
             aria-label="Page navigation example"
-            className="flex items-center gap-4"
+            className="sm:flex items-center gap-4"
           >
             <ul className="inline-flex -space-x-px text-sm">
               {prevPage !== null && (
@@ -76,13 +76,13 @@ function PageNumberDashboard() {
             </ul>
             <form
               onSubmit={handleJumpToPage}
-              className="flex items-center space-x-2"
+              className="justify-between flex items-center space-x-2"
             >
               <input
                 type="number"
                 value={inputPage}
                 onChange={(e) => setInputPage(e.target.value)}
-                className="w-20 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
+                className="w-full sm:w-20 px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
                 placeholder="Page"
                 min="1"
                 max={pageDashboard}
