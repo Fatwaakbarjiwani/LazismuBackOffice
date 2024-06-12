@@ -31,7 +31,7 @@ export function ModalPengajuan({ id,item }) {
 
   const handleSubmit = () => {
     const nominalValue = parseInt(nominal.replace(/\./g, ""), 10);
-    if (nominalValue > item.currentAmount) {
+    if (nominalValue > item.distribution) {
       setError("Nominal pengajuan tidak boleh lebih besar dari total donasi.");
     } else {
       dispatch(createPengajuan(id,nominalValue,setOpenModal));
@@ -64,7 +64,7 @@ export function ModalPengajuan({ id,item }) {
                 <div className="text-lg font-semibold text-gray-700">
                   Total Donasi:{" "}
                   <span className="font-normal">
-                    Rp {formatNumber(item?.currentAmount)}
+                    Rp {formatNumber(item?.distribution)}
                   </span>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export function ModalPengajuan({ id,item }) {
 ModalPengajuan.propTypes = {
   item: PropTypes.shape({
     campaignName: PropTypes.string.isRequired,
-    currentAmount: PropTypes.number.isRequired,
+    distribution: PropTypes.number.isRequired,
   }).isRequired,
   id: PropTypes.string.isRequired,
 };

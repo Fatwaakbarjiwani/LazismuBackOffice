@@ -56,6 +56,7 @@ export default function TablePengajuan() {
                 <Table.HeadCell>Tanggal & Waktu</Table.HeadCell>
                 <Table.HeadCell>Target</Table.HeadCell>
                 <Table.HeadCell>Terkumpul</Table.HeadCell>
+                <Table.HeadCell>Distribusi</Table.HeadCell>
                 <Table.HeadCell>Status</Table.HeadCell>
                 <Table.HeadCell>Aproved</Table.HeadCell>
                 <Table.HeadCell>Action</Table.HeadCell>
@@ -74,6 +75,7 @@ export default function TablePengajuan() {
                     </Table.Cell>
                     <Table.Cell>{formatNumber(item.targetAmount)}</Table.Cell>
                     <Table.Cell>{formatNumber(item.currentAmount)}</Table.Cell>
+                    <Table.Cell>{formatNumber(item.distribution)}</Table.Cell>
                     <Table.Cell>
                       {item.active == true ? (
                         <div className="font-bold text-green-600">AKTIF</div>

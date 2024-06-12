@@ -61,7 +61,7 @@ function TableContent() {
                 <Table.Cell className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-2xl">
                   {item.campaignName}
                 </Table.Cell>
-                <Table.Cell>{item?.creator?.username}</Table.Cell>
+                <Table.Cell>{item?.creator}</Table.Cell>
                 <Table.Cell>{item.campaignCode}</Table.Cell>
                 <Table.Cell>{item.location}</Table.Cell>
                 <Table.Cell>
@@ -87,10 +87,10 @@ function TableContent() {
                     </button>
                   )}
                 </Table.Cell>
-                <Table.Cell>{formatNumber(500000)}</Table.Cell>
-                <Table.Cell>{formatNumber(250000)}</Table.Cell>
+                <Table.Cell>{formatNumber(item?.realisasi)}</Table.Cell>
+                <Table.Cell>{formatNumber(item?.pengajuan)}</Table.Cell>
                 <Table.Cell>
-                  {formatNumber(item?.currentAmount - 250000)}
+                  {formatNumber(item?.distribution)}
                 </Table.Cell>
               </Table.Row>
             ))}

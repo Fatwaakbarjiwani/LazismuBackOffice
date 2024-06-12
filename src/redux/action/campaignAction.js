@@ -62,7 +62,9 @@ export const getCampaign = (searchCampaign) => async (dispatch) => {
 };
 export const getCampaigns = (page) => async (dispatch) => {
   try {
-    const response = await axios.get(`${VITE_API_URL}/campaign?page=${page}`);
+    const response = await axios.get(
+      `${VITE_API_URL}/campaign/all-details?page=${page}`
+    );
     const data = response.data;
     dispatch(setAllCampaign(data.content));
     dispatch(setPageDashboard(data.totalPages));
