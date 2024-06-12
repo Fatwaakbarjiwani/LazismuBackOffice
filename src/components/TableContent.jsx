@@ -1,7 +1,7 @@
 import { Table } from "flowbite-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCampaign, getCampaignActive } from "../redux/action/campaignAction";
+import { getCampaign, getCampaigns } from "../redux/action/campaignAction";
 import PageNumberDashboard from "./PageNumberDashboard";
 import { setSearchCampaign } from "../redux/reducers/campaignReducer";
 
@@ -13,7 +13,7 @@ function TableContent() {
 
   useEffect(() => {
     if (searchCampaign == "") {
-      dispatch(getCampaignActive(pageNumberDashboard - 1));
+      dispatch(getCampaigns(pageNumberDashboard - 1));
     } else {
       dispatch(getCampaign(searchCampaign, pageNumberDashboard - 1));
     }

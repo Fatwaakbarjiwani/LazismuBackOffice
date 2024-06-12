@@ -5,6 +5,9 @@ import {
   setAllCampaign,
   setAllCategory,
   setAmilCampaign,
+  setAmilInfak,
+  setAmilWakaf,
+  setAmilZakat,
   setAprovedPengajuan,
   setBerita,
   setCampaign,
@@ -14,6 +17,7 @@ import {
   setDetailCampaign,
   setGetCampaignSearch,
   setGetCategoryCampaign,
+  setHistoryCampaign,
   setPage,
   setPage2,
   setPageDashboard,
@@ -51,6 +55,28 @@ export const getCampaign = (searchCampaign) => async (dispatch) => {
     );
     const data = response.data;
     dispatch(setAllCampaign(data.content));
+    dispatch(setPageDashboard(data.totalPages));
+  } catch (error) {
+    toast.error(error.response.data);
+  }
+};
+export const getCampaigns = (page) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${VITE_API_URL}/campaign?page=${page}`);
+    const data = response.data;
+    dispatch(setAllCampaign(data.content));
+    dispatch(setPageDashboard(data.totalPages));
+  } catch (error) {
+    toast.error(error.response.data);
+  }
+};
+export const getHistory = (page) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${VITE_API_URL}/campaign/history-campaign?page=${page}`
+    );
+    const data = response.data;
+    dispatch(setHistoryCampaign(data.content));
     dispatch(setPageDashboard(data.totalPages));
   } catch (error) {
     toast.error(error.response.data);
@@ -120,6 +146,36 @@ export const getAmil = (page) => async (dispatch) => {
     toast.error(error.response.data);
   }
 };
+export const getAmilZakat = (page, setPageZakat) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${VITE_API_URL}/amil-zakat?page=${page}`);
+    const data = response.data;
+    dispatch(setAmilZakat(data.content));
+    setPageZakat(data.totalPages);
+  } catch (error) {
+    toast.error(error.response.data);
+  }
+};
+export const getAmilInfak = (page, setPageInfak) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${VITE_API_URL}/amil-infak?page=${page}`);
+    const data = response.data;
+    dispatch(setAmilInfak(data.content));
+    setPageInfak(data.totalPages);
+  } catch (error) {
+    toast.error(error.response.data);
+  }
+};
+export const getAmilWakaf = (page, setPageWakaf) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${VITE_API_URL}/amil-wakaf?page=${page}`);
+    const data = response.data;
+    dispatch(setAmilWakaf(data.content));
+    setPageWakaf(data.totalPages);
+  } catch (error) {
+    toast.error(error.response.data);
+  }
+};
 export const getSummaryAmil = () => async (dispatch) => {
   try {
     const response = await axios.get(`${VITE_API_URL}/summary-campaign`);
@@ -177,20 +233,7 @@ export const getCampaignCategory = (category) => async (dispatch) => {
   }
 };
 export const createNewCampaign =
-  (
-    category,
-    name,
-    code,
-    image,
-    desk,
-    location,
-    target,
-    current,
-    dist,
-    start,
-    end,
-    active
-  ) =>
+  (category, name, code, image, desk, location, target, start, end, active) =>
   async (dispatch, getState) => {
     try {
       const { token } = getState().auth;
@@ -202,8 +245,6 @@ export const createNewCampaign =
       formData.append("description", desk);
       formData.append("location", location);
       formData.append("targetAmount", target);
-      formData.append("currentAmount", current);
-      formData.append("distribution", dist);
       formData.append("startDate", start);
       formData.append("endDate", end);
       formData.append("active", active);
@@ -217,8 +258,6 @@ export const createNewCampaign =
           description: desk,
           location: location,
           targetAmount: target,
-          currentAmount: current,
-          distribution: dist,
           startDate: start,
           endDate: end,
           active: active,
@@ -332,8 +371,6 @@ export const EditCampaign =
     description,
     location,
     targetAmount,
-    currentAmount,
-    distribution,
     startDate,
     endDate,
     active,
@@ -353,8 +390,6 @@ export const EditCampaign =
       formData.append("description", description);
       formData.append("location", location);
       formData.append("targetAmount", targetAmount);
-      formData.append("currentAmount", currentAmount);
-      formData.append("distribution", distribution);
       formData.append("startDate", startDate);
       formData.append("endDate", endDate);
       formData.append("active", active);
@@ -368,8 +403,6 @@ export const EditCampaign =
           description,
           location,
           targetAmount,
-          currentAmount,
-          distribution,
           startDate,
           endDate,
           active,
@@ -466,7 +499,7 @@ export const aproveSubmission = (id) => async (_, getState) => {
         },
       }
     );
-    window.location.reload()
+    window.location.reload();
   } catch (error) {
     const errorMessage = error.response?.data?.message || "Unknown error";
     toast.error(`Error approve campaign: ${errorMessage}`);
@@ -505,6 +538,31 @@ export const getTransaksi = (pageNumber, setJumlah) => async (dispatch) => {
     toast.error(error.response.data);
   }
 };
+export const createDocumentation =
+  (code, distributionAmount, distributionDate, receiver, description, image) =>
+  async (_, getState) => {
+    try {
+      const { token } = getState().auth;
+      await axios.post(
+        `${VITE_API_URL}/distribution/campaign/${code}`,
+        {
+          distributionAmount: distributionAmount,
+          distributionDate: distributionDate,
+          receiver: receiver,
+          image: image,
+          description: description,
+          success: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      toast.error(error.response.data);
+    }
+  };
 export const createPengajuan =
   (id, jumlah, setOpenModal) => async (_, getState) => {
     try {
@@ -530,12 +588,12 @@ export const createPengajuan =
     }
   };
 export const buatTransaksi =
-  (jumlah, nama, desk, code, setOpenModal) => async (_, getState) => {
+  (jumlah, nama, desk, code, setOpenModal, type) => async (_, getState) => {
     // console.log(jumlah, nama, desk, code);
     try {
       const { token } = getState().auth;
       await axios.post(
-        `${VITE_API_URL}/transaction/campaign/${code}`,
+        `${VITE_API_URL}/transaction/${type}/${code}`,
         {
           transactionAmount: jumlah,
           message: desk,
@@ -579,7 +637,7 @@ export const TutupCampaign =
       formData.append("distribution", distribution);
       formData.append("active", active);
       formData.append("creator", creator);
-      const response = await axios.put(
+      await axios.put(
         `${VITE_API_URL}/admin/update-campaign/${codeEdit}`,
         {
           campaignName,
@@ -599,9 +657,10 @@ export const TutupCampaign =
           },
         }
       );
-      if (response) {
-        toast.success("Campaign berhasil di tutup");
-      }
+      toast.success("Campaign berhasil di tutup");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error(error.response.data);
     }

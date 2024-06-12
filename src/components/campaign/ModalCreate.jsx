@@ -23,8 +23,6 @@ export default function ModalCreate({ create, setCreate }) {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
-  const [currentAmount, setCurrentAmount] = useState("");
-  const [distribution, setDistribution] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [category, setCategory] = useState(1);
@@ -68,6 +66,7 @@ export default function ModalCreate({ create, setCreate }) {
   };
 
   const handleSave = () => {
+    const nominalValue = parseInt(targetAmount.replace(/\./g, ""), 10);
     dispatch(
       createNewCampaign(
         category,
@@ -76,12 +75,10 @@ export default function ModalCreate({ create, setCreate }) {
         campaignImage,
         description,
         location,
-        targetAmount,
-        currentAmount,
-        distribution,
+        nominalValue,
         startDate,
         endDate,
-        "true",
+        "true"
       )
     );
     setTimeout(() => {
@@ -144,22 +141,13 @@ export default function ModalCreate({ create, setCreate }) {
           <FloatingLabel
             variant="standard"
             label="Target Amount"
-            type="number"
+            type="text"
             value={targetAmount}
-            onChange={(e) => setTargetAmount(e.target.value)}
-          />
-          <FloatingLabel
-            variant="standard"
-            label="Current Amount"
-            type="number"
-            value={currentAmount}
-            onChange={(e) => setCurrentAmount(e.target.value)}
-          />
-          <FloatingLabel
-            variant="standard"
-            label="Distribution"
-            value={distribution}
-            onChange={(e) => setDistribution(e.target.value)}
+            onChange={(e) => {
+              let inputValue = e.target.value.replace(/[^\d]/g, "");
+              inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+              setTargetAmount(inputValue);
+            }}
           />
           <div>
             <label className="block mb-2 text-sm text-gray-600 ">

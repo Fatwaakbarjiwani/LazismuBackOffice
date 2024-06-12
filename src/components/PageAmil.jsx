@@ -1,16 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setPageNumberDashboard } from "../redux/reducers/campaignReducer";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-function PageNumberDashboard() {
-  const dispatch = useDispatch();
+function PageAmil({
+  pageDashboard,
+  pageNumberDashboard,
+  setPageNumberDashboard,
+}) {
   const [inputPage, setInputPage] = useState("");
-  const { pageNumberDashboard } = useSelector((state) => state.campaign);
-  const { pageDashboard } = useSelector((state) => state.campaign);
-
   const handlePage = (value) => {
     if (value >= 1 && value <= pageDashboard) {
-      dispatch(setPageNumberDashboard(value));
+      setPageNumberDashboard(value);
     }
   };
 
@@ -24,7 +23,10 @@ function PageNumberDashboard() {
   };
 
   const renderPagination = () => {
-    const pages = Array.from({ length: pageDashboard }, (_, index) => index + 1);
+    const pages = Array.from(
+      { length: pageDashboard },
+      (_, index) => index + 1
+    );
     if (pages.length < 1) {
       return null;
     }
@@ -102,4 +104,9 @@ function PageNumberDashboard() {
   return <div>{renderPagination()}</div>;
 }
 
-export default PageNumberDashboard;
+export default PageAmil;
+PageAmil.propTypes = {
+  pageDashboard: PropTypes.number,
+  pageNumberDashboard: PropTypes.number,
+  setPageNumberDashboard: PropTypes.func,
+};

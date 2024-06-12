@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { buatTransaksi } from "../redux/action/campaignAction";
 
-export function ModalTransaksi({ code }) {
+export function ModalTransaksi({ code, type }) {
   const [openModal, setOpenModal] = useState(false);
   const [nama, setNama] = useState("");
   const [selectedTotal, setSelectedTotal] = useState("");
@@ -37,7 +37,14 @@ export function ModalTransaksi({ code }) {
   }
   const handleTransaction = () => {
     dispatch(
-      buatTransaksi(hapusTitik(selectedTotal), nama, desk, code, setOpenModal)
+      buatTransaksi(
+        hapusTitik(selectedTotal),
+        nama,
+        desk,
+        code,
+        setOpenModal,
+        type
+      )
     );
   };
 
@@ -62,7 +69,7 @@ export function ModalTransaksi({ code }) {
         <Modal.Body>
           <div className="space-y-6">
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Buat Transaksi
+              Transaksi {type}
             </h3>
             <div>
               <div className="mb-2 block">
@@ -123,4 +130,5 @@ export function ModalTransaksi({ code }) {
 }
 ModalTransaksi.propTypes = {
   code: PropTypes.string,
+  type: PropTypes.string,
 };

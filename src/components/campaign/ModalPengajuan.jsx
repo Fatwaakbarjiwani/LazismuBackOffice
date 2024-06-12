@@ -34,7 +34,7 @@ export function ModalPengajuan({ id,item }) {
     if (nominalValue > item.currentAmount) {
       setError("Nominal pengajuan tidak boleh lebih besar dari total donasi.");
     } else {
-      dispatch(createPengajuan(id,nominal,setOpenModal));
+      dispatch(createPengajuan(id,nominalValue,setOpenModal));
       onCloseModal();
     }
   };

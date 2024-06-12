@@ -23,9 +23,13 @@ const initialState = {
   detailBerita: [],
   campaignPending: [],
   amilCampaign: [],
+  amilZakat: [],
+  amilInfak: [],
+  amilWakaf: [],
   summaryAmil: [],
   pengajuan: [],
   aprovedPengajuan: [],
+  historyCampaign: [],
 };
 const authSlice = createSlice({
   name: "campaign",
@@ -100,6 +104,15 @@ const authSlice = createSlice({
     setAmilCampaign: (state, action) => {
       state.amilCampaign = action.payload;
     },
+    setAmilZakat: (state, action) => {
+      state.amilZakat = action.payload;
+    },
+    setAmilInfak: (state, action) => {
+      state.amilInfak = action.payload;
+    },
+    setAmilWakaf: (state, action) => {
+      state.amilWakaf = action.payload;
+    },
     setSummaryAmil: (state, action) => {
       state.summaryAmil = action.payload;
     },
@@ -108,6 +121,9 @@ const authSlice = createSlice({
     },
     setAprovedPengajuan: (state, action) => {
       state.aprovedPengajuan = action.payload;
+    },
+    setHistoryCampaign: (state, action) => {
+      state.historyCampaign = action.payload;
     },
   },
 });
@@ -136,9 +152,13 @@ export const {
   setDetailBerita,
   setCampaignPending,
   setAmilCampaign,
+  setAmilInfak,
+  setAmilWakaf,
+  setAmilZakat,
   setSummaryAmil,
   setPengajuan,
   setAprovedPengajuan,
+  setHistoryCampaign
 } = authSlice.actions;
 
 export default authSlice.reducer;

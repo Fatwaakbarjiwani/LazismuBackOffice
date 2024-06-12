@@ -23,8 +23,6 @@ function ModalEdit({ edit, setEdit }) {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
-  const [currentAmount, setCurrentAmount] = useState("");
-  const [distribution, setDistribution] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [creator, setCreator] = useState("");
@@ -48,8 +46,6 @@ function ModalEdit({ edit, setEdit }) {
       setDescription(detailCampaign?.description || "");
       setLocation(detailCampaign?.location || "");
       setTargetAmount(detailCampaign?.targetAmount || "");
-      setCurrentAmount(detailCampaign?.currentAmount || "0");
-      setDistribution(detailCampaign?.distribution || "0");
       setCreator(detailCampaign?.creator?.username || "");
       setCategory(detailCampaign?.category?.categoryId);
     } else {
@@ -98,8 +94,6 @@ function ModalEdit({ edit, setEdit }) {
         description,
         location,
         targetAmount,
-        currentAmount,
-        distribution,
         startDate,
         endDate,
         "true",
@@ -200,20 +194,6 @@ function ModalEdit({ edit, setEdit }) {
             type="number"
             value={targetAmount}
             onChange={(e) => setTargetAmount(e.target.value)}
-          />
-          <FloatingLabel
-            variant="standard"
-            label="Current Amount"
-            type="number"
-            value={currentAmount}
-            onChange={(e) => setCurrentAmount(e.target.value)}
-          />
-
-          <FloatingLabel
-            variant="standard"
-            label="Distribution"
-            value={distribution}
-            onChange={(e) => setDistribution(e.target.value)}
           />
           <div>
             <label className="flex items-center mb-2 text-sm text-gray-600 gap-2">

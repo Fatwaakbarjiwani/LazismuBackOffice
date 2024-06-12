@@ -9,6 +9,7 @@ import {
   getSubmissionPending,
 } from "../../redux/action/campaignAction";
 import ModalNotifAprovedSubmission from "./ModalNotifAprovedSubmission";
+import ModalDocumentation from "./ModalDocumentation";
 
 export default function TablePengajuan() {
   const { user } = useSelector((state) => state.auth);
@@ -61,10 +62,7 @@ export default function TablePengajuan() {
               </Table.Head>
               <Table.Body className="divide-y">
                 {campaignPending.map((item) => (
-                  <Table.Row
-                    key={item.campaignId}
-                    className="bg-white"
-                  >
+                  <Table.Row key={item.campaignId} className="bg-white">
                     <Table.Cell>{item.campaignId}</Table.Cell>
                     <Table.Cell className="px-4 py-2 whitespace-nowrap overflow-hidden overflow-ellipsis max-w-sm">
                       {item.campaignName}
@@ -127,10 +125,7 @@ export default function TablePengajuan() {
             </Table.Head>
             <Table.Body className="divide-y">
               {aprovedPengajuan.map((item) => (
-                <Table.Row
-                  key={item.submissionId}
-                  className="bg-white"
-                >
+                <Table.Row key={item.submissionId} className="bg-white">
                   <Table.Cell>{item.submissionId}</Table.Cell>
                   <Table.Cell>{item?.user?.username}</Table.Cell>
                   <Table.Cell className="px-4 py-2 whitespace-nowrap overflow-hidden overflow-ellipsis max-w-sm">
@@ -155,9 +150,10 @@ export default function TablePengajuan() {
                   </Table.Cell>
                   {user?.role?.name == "SUB_ADMIN" && (
                     <Table.Cell>
-                      <button className="bg-green-500 text-white font-semibold shadow rounded p-2 active:scale-105">
-                        DOCUMENTATION
-                      </button>
+                      <ModalDocumentation
+                        submissionAmount={item?.submissionAmount}
+                        code={item?.campaign?.campaignCode}
+                      />
                     </Table.Cell>
                   )}
                 </Table.Row>
@@ -187,17 +183,16 @@ export default function TablePengajuan() {
             </Table.Head>
             <Table.Body className="divide-y">
               {pengajuan.map((item) => (
-                <Table.Row
-                  key={item.submissionId}
-                  className="bg-white"
-                >
+                <Table.Row key={item.submissionId} className="bg-white">
                   <Table.Cell>{item.submissionId}</Table.Cell>
                   <Table.Cell>{item?.user?.username}</Table.Cell>
                   <Table.Cell>{item?.campaign?.campaignName}</Table.Cell>
                   <Table.Cell>
                     {formatNumber(item?.campaign?.currentAmount)}
                   </Table.Cell>
-                  <Table.Cell>{item?.submissionAmount}</Table.Cell>
+                  <Table.Cell>
+                    {formatNumber(item?.submissionAmount)}
+                  </Table.Cell>
                   <Table.Cell>{item.submissionDate}</Table.Cell>
                   <Table.Cell>
                     {item.approved == true ? (

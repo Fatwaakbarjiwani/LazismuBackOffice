@@ -1,37 +1,24 @@
 import { Table } from "flowbite-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCampaign } from "../redux/action/campaignAction";
-import { setSearchCampaign } from "../redux/reducers/campaignReducer";
-import { ModalTransaksi } from "./ModalTransaksi";
-import PageNumber from "./PageNumber";
+import { getHistory } from "../redux/action/campaignAction";
+import PageNumberDashboard from "./PageNumberDashboard";
 
-function TablePengajuan() {
+function TableHistory() {
   const dispatch = useDispatch();
-  const { campaign } = useSelector((state) => state.campaign);
-  const { pageNumber } = useSelector((state) => state.campaign);
-  const { searchCampaign } = useSelector((state) => state.campaign);
+  const { historyCampaign } = useSelector((state) => state.campaign);
+  const { pageNumberDashboard } = useSelector((state) => state.campaign);
 
   useEffect(() => {
-    dispatch(getAllCampaign(pageNumber - 1));
-  }, [dispatch, pageNumber, searchCampaign]);
+    dispatch(getHistory(pageNumberDashboard - 1));
+  }, [dispatch, pageNumberDashboard]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
   return (
     <div className="bg-white p-5 rounded-2xl">
-      <div className="flex gap-10 items-end">
-        <div className="flex gap-2 items-center">
-          <p className="text-lg">Search: </p>
-          <input
-            className="outline-none ring-1 rounded-sm ring-gray-200 p-1 w-full"
-            color={"green"}
-            type="text"
-            value={searchCampaign}
-            onChange={(e) => dispatch(setSearchCampaign(e.target.value))}
-          />
-        </div>
-        <PageNumber />
+      <div className="sm:flex space-y-4 gap-10 items-end">
+        <PageNumberDashboard />
       </div>
       <div className="overflow-x-auto">
         <Table hoverable className="my-5">
@@ -44,11 +31,14 @@ function TablePengajuan() {
             <Table.HeadCell>Target</Table.HeadCell>
             <Table.HeadCell>Terkumpul</Table.HeadCell>
             <Table.HeadCell>Status</Table.HeadCell>
-            <Table.HeadCell>action</Table.HeadCell>
+            <Table.HeadCell>Aproved</Table.HeadCell>
+            <Table.HeadCell>Pengajuan</Table.HeadCell>
+            <Table.HeadCell>Realisasi</Table.HeadCell>
+            <Table.HeadCell>Distribusi</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {campaign.map((item) => (
-              <Table.Row key={item.campaignId} className="bg-white">
+            {historyCampaign.map((item) => (
+              <Table.Row key={item.campaignId} className="bg-white ">
                 <Table.Cell className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-2xl">
                   {item.campaignName}
                 </Table.Cell>
@@ -62,13 +52,26 @@ function TablePengajuan() {
                 <Table.Cell>{formatNumber(item.currentAmount)}</Table.Cell>
                 <Table.Cell>
                   {item.active == true ? (
-                    <p className="font-bold text-green-600">AKTIF</p>
+                    <button className="font-bold text-green-600">AKTIF</button>
                   ) : (
-                    <p className="font-bold text-red-600">SELESAI</p>
+                    <button className="font-bold text-red-600">SELESAI</button>
                   )}
                 </Table.Cell>
                 <Table.Cell>
-                  <ModalTransaksi code={item?.campaignCode} type={"campaign"} />
+                  {item.approved == true ? (
+                    <button className="flex items-center bg-green-500 rounded p-1 px-4 text-white">
+                      APROVE
+                    </button>
+                  ) : (
+                    <button className="flex items-center bg-gray-500 rounded p-1 px-4 text-white">
+                      PENDING
+                    </button>
+                  )}
+                </Table.Cell>
+                <Table.Cell>{formatNumber(500000)}</Table.Cell>
+                <Table.Cell>{formatNumber(250000)}</Table.Cell>
+                <Table.Cell>
+                  {formatNumber(item?.currentAmount - 250000)}
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -79,4 +82,4 @@ function TablePengajuan() {
   );
 }
 
-export default TablePengajuan;
+export default TableHistory;
