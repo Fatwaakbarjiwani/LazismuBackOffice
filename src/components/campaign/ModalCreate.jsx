@@ -29,9 +29,17 @@ export default function ModalCreate({ create, setCreate }) {
   const { allCategory } = useSelector((state) => state.campaign);
   const dispatch = useDispatch();
   const { detailCampaign } = useSelector((state) => state.campaign);
+  const [button, setButton] = useState(false);
 
   useEffect(() => {
     dispatch(getAllCategory());
+    if (create == false) {
+      setButton(false)
+      setCampaignName("")
+      setCampaignCode("")
+      setCampaignImage(null)
+      
+    }
   }, [dispatch, detailCampaign, create]);
 
   function formatDateToWIB(date) {
@@ -84,6 +92,13 @@ export default function ModalCreate({ create, setCreate }) {
     setTimeout(() => {
       dispatch(setCreate(false));
     }, 2000);
+  };
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Menambahkan 1 karena bulan dimulai dari 0
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -149,24 +164,43 @@ export default function ModalCreate({ create, setCreate }) {
               setTargetAmount(inputValue);
             }}
           />
-          <div>
-            <label className="block mb-2 text-sm text-gray-600 ">
-              Tanggal Mulai
+          {button == false && (
+            <label className="block mb-2 text-sm text-gray-600 flex gap-4 items-center">
+              Buat Tanggal
+              <button
+                onClick={() => {
+                  setButton(true);
+                  setStartDate(getCurrentDate());
+                  setEndDate(getCurrentDate());
+                }}
+                className="bg-yellow-400 p-1 rounded text-white font-semibold"
+              >
+                Pilih
+              </button>
             </label>
-            <Datepicker
-              variant="standard"
-              onSelectedDateChanged={(value) => handleStartDate(value)}
-            />
-          </div>
-          <div>
-            <label className="block mb-2 text-sm text-gray-600 ">
-              Tanggal Selesai
-            </label>
-            <Datepicker
-              variant="standard"
-              onSelectedDateChanged={(value) => handleEndDate(value)}
-            />
-          </div>
+          )}
+          {button == true && (
+            <div>
+              <label className="block mb-2 text-sm text-gray-600 flex gap-4 items-center">
+                Tanggal Mulai
+              </label>
+              <Datepicker
+                variant="standard"
+                onSelectedDateChanged={(value) => handleStartDate(value)}
+              />
+            </div>
+          )}
+          {button == true && (
+            <div>
+              <label className="block mb-2 text-sm text-gray-600 flex gap-4 items-center">
+                Tanggal Selesai
+              </label>
+              <Datepicker
+                variant="standard"
+                onSelectedDateChanged={(value) => handleEndDate(value)}
+              />
+            </div>
+          )}
           {/*  */}
           <div className="flex w-full items-center justify-center">
             <Label

@@ -65,5 +65,5 @@ export default function ModalNotifAprovedSubmission({showAprove,setShowAprove,id
 ModalNotifAprovedSubmission.propTypes = {
   showAprove: PropTypes.bool,
   setShowAprove: PropTypes.func,
-  id: PropTypes.number,
+  id: PropTypes.string,
 };

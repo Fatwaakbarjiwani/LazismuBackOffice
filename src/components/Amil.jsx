@@ -34,7 +34,7 @@ function Amil() {
     dispatch(getAmilInfak(pageInfak - 1, setTotalPageInfak));
     dispatch(getAmilWakaf(pageWakaf - 1, setTotalPageWakaf));
     dispatch(getSummaryAmil());
-  }, [dispatch, pageNumberDashboard]);
+  }, [dispatch, pageNumberDashboard, pageInfak, pageWakaf, pageZakat]);
   const formatNumber = (value) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };

@@ -31,6 +31,7 @@ export default function ModalDocumentation({ submissionAmount, code }) {
       setReceiver("");
       setImage(null);
       setDate("");
+      setButton(false)
     }
   }, [dispatch, create]);
 

@@ -8,9 +8,7 @@ import {
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  createNews,
-} from "../../redux/action/campaignAction";
+import { createNews } from "../../redux/action/campaignAction";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 
@@ -22,6 +20,8 @@ export default function ModalCreateBerita({ create, setCreate }) {
   const [date, setDate] = useState("");
   const [topicNews, setTopicNews] = useState(1);
   const dispatch = useDispatch();
+  const [button, setButton] = useState(false);
+
 
   const topic = [
     { id: 1, topicName: "Opini" },
@@ -40,6 +40,14 @@ export default function ModalCreateBerita({ create, setCreate }) {
       setTopicNews(1);
     }
   }, [dispatch, create]);
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Menambahkan 1 karena bulan dimulai dari 0
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   function formatDateToWIB(date) {
     const day = date.getDate();
@@ -68,7 +76,7 @@ export default function ModalCreateBerita({ create, setCreate }) {
   };
 
   const handleSave = () => {
-    dispatch(createNews(judulBerita, newsImage, description,topicNews, date));
+    dispatch(createNews(judulBerita, newsImage, description, topicNews, date));
     setTimeout(() => {
       dispatch(setCreate(false));
     }, 2000);
@@ -114,13 +122,26 @@ export default function ModalCreateBerita({ create, setCreate }) {
             ></textarea>
           </div>
           <div>
-            <label className="block mb-2 text-sm text-gray-600 ">
+            <label className="block mb-2 text-sm text-gray-600 flex gap-4 items-center">
               Tanggal
+              {button == false && (
+                <button
+                  onClick={() => {
+                    setButton(true);
+                    setDate(getCurrentDate());
+                  }}
+                  className="bg-yellow-400 p-1 rounded text-white font-semibold"
+                >
+                  Pilih
+                </button>
+              )}
             </label>
-            <Datepicker
-              variant="standard"
-              onSelectedDateChanged={(value) => handleStartDate(value)}
-            />
+            {button == true && (
+              <Datepicker
+                variant="standard"
+                onSelectedDateChanged={(value) => handleStartDate(value)}
+              />
+            )}
           </div>
           {/*  */}
           <div className="flex w-full items-center justify-center">

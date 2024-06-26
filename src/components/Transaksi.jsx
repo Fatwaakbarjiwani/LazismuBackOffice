@@ -15,6 +15,7 @@ import TablePengajuan from "./TablePengajuan";
 import PageNumber2 from "./PageNumber2";
 import PageAmil from "./PageAmil";
 import { ModalTransaksi } from "./ModalTransaksi";
+import DateFormatter from "./FormatDate";
 
 function Transaksi() {
   const { transaksi } = useSelector((state) => state.campaign);
@@ -79,32 +80,48 @@ function Transaksi() {
             <Table.Head className="text-sm ">
               <Table.HeadCell>Id</Table.HeadCell>
               <Table.HeadCell>Nama</Table.HeadCell>
+              <Table.HeadCell>PIC</Table.HeadCell>
               <Table.HeadCell>No Handphone</Table.HeadCell>
               <Table.HeadCell>Jumlah Transaksi</Table.HeadCell>
               <Table.HeadCell>Pesan</Table.HeadCell>
               <Table.HeadCell>Tanggal</Table.HeadCell>
-              <Table.HeadCell>Status</Table.HeadCell>
+              <Table.HeadCell>Channel</Table.HeadCell>
+              <Table.HeadCell>Metode</Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
               {transaksi.map((item) => (
                 <Table.Row key={item.transactionId} className="bg-white">
                   <Table.Cell>{item.transactionId}</Table.Cell>
                   <Table.Cell>{item.username}</Table.Cell>
+                  <Table.Cell>{item?.user?.username}</Table.Cell>
                   <Table.Cell>{item.phoneNumber}</Table.Cell>
                   <Table.Cell>
                     {formatNumber(item.transactionAmount)}
                   </Table.Cell>
                   <Table.Cell>{item.message}</Table.Cell>
-                  <Table.Cell>{item.transactionDate}</Table.Cell>
+                  <Table.Cell className="whitespace-nowrap">
+                    <DateFormatter dateString={item?.transactionDate} />
+                  </Table.Cell>
                   <Table.Cell>
-                    {item.success == true ? (
-                      <button className="flex items-center bg-green-500 rounded px-4 p-1 text-white">
-                        Berhasil
-                      </button>
+                    {item.channel == "OFFLINE" ? (
+                      <p className="text-orange-600 font-semibold text-center">
+                        {item.channel}
+                      </p>
                     ) : (
-                      <button className="flex items-center bg-red-500 rounded px-4 p-1 text-white">
-                        Gagal
-                      </button>
+                      <p className="text-green-600 font-semibold text-center">
+                        {item.channel}
+                      </p>
+                    )}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {item.method == "OFFLINE" ? (
+                      <p className="text-orange-600 font-semibold text-center">
+                        {item.method}
+                      </p>
+                    ) : (
+                      <p className="text-green-600 font-semibold text-center">
+                        {item.method}
+                      </p>
                     )}
                   </Table.Cell>
                 </Table.Row>

@@ -30,6 +30,7 @@ const initialState = {
   pengajuan: [],
   aprovedPengajuan: [],
   historyCampaign: [],
+  documentasi:[]
 };
 const authSlice = createSlice({
   name: "campaign",
@@ -125,6 +126,9 @@ const authSlice = createSlice({
     setHistoryCampaign: (state, action) => {
       state.historyCampaign = action.payload;
     },
+    setDocumentasi: (state, action) => {
+      state.documentasi = action.payload;
+    },
   },
 });
 
@@ -158,7 +162,8 @@ export const {
   setSummaryAmil,
   setPengajuan,
   setAprovedPengajuan,
-  setHistoryCampaign
+  setHistoryCampaign,
+  setDocumentasi
 } = authSlice.actions;
 
 export default authSlice.reducer;

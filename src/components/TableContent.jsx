@@ -55,7 +55,7 @@ function TableContent() {
           <Table.Body className="divide-y">
             {allCampaign.map((item) => (
               <Table.Row
-                key={item.campaignId}
+                key={item.campaignCode}
                 className="bg-white "
               >
                 <Table.Cell className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-2xl">

@@ -15,6 +15,7 @@ import {
   setCategoryCampaign,
   setDetailBerita,
   setDetailCampaign,
+  setDocumentasi,
   setGetCampaignSearch,
   setGetCategoryCampaign,
   setHistoryCampaign,
@@ -274,6 +275,7 @@ export const createNewCampaign =
       if (response) {
         toast.success("Berhasil Membuat Campaign");
       }
+      toast.success("Berhasil Membuat Campaign");
     } catch (error) {
       if (error.response.status === 400) {
         toast.error(error.response.data.message);
@@ -312,6 +314,7 @@ export const createNews =
       if (response) {
         toast.success("Berhasil Membuat Berita");
       }
+      toast.success("Berhasil Membuat Berita");
     } catch (error) {
       if (error.response.status === 400) {
         toast.error(error.response.data.message);
@@ -350,6 +353,7 @@ export const editNews =
           },
         }
       );
+      toast.success("Berhasil Merubah Berita");
       if (response) {
         toast.success("Berhasil Merubah Berita");
         setTimeout(() => {
@@ -454,6 +458,7 @@ export const tutupBerita = (id) => async (dispatch, getState) => {
         },
       }
     );
+    toast.success("Berita Berhasil Di Hapus");
     if (response) {
       toast.success("Berita Berhasil Di Hapus");
     }
@@ -540,6 +545,18 @@ export const getTransaksi = (pageNumber, setJumlah) => async (dispatch) => {
     toast.error(error.response.data);
   }
 };
+export const getDocumentasi = (pageNumber, setPage) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${VITE_API_URL}/admin/get-all-distributions?page=${pageNumber}`
+    );
+    const data = response.data;
+    dispatch(setDocumentasi(data.content));
+    setPage(data.totalPages);
+  } catch (error) {
+    toast.error(error.response.data);
+  }
+};
 export const createDocumentation =
   (code, distributionAmount, distributionDate, receiver, description, image) =>
   async (_, getState) => {
@@ -561,6 +578,7 @@ export const createDocumentation =
           },
         }
       );
+      toast.success("berhasil membuat documentasi");
     } catch (error) {
       toast.error(error.response.data);
     }
@@ -583,8 +601,8 @@ export const createPengajuan =
           },
         }
       );
-      setOpenModal(false);
       toast.success("pengajuan berhasil");
+      setOpenModal(false);
     } catch (error) {
       toast.error(error.response.data);
     }
